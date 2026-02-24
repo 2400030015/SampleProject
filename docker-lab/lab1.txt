@@ -1,0 +1,120 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Dundi> docker pull mysql
+>> 
+Using default tag: latest
+Error response from daemon: failed to resolve reference "docker.io/library/mysql:latest": failed to do request: Head "https://registry-1.docker.io/v2/library/mysql/manifests/latest": context deadline exceeded
+PS C:\Users\Dundi> 
+PS C:\Users\Dundi> docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+40598e3f3ffd   bridge    bridge    local
+d031c004989c   host      host      local
+a264a10d3259   none      null      local
+PS C:\Users\Dundi> docker run -d --name container1 nginx
+4c9bba3562e62602e80c97907753fc383e8499e2a74e3566c5b138bbdc9a3c76
+PS C:\Users\Dundi> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+4c9bba3562e6   nginx     "/docker-entrypoint.…"   2 minutes ago    Up 2 minutes    80/tcp                                    container1
+7a090fa42d1b   myimage   "httpd-foreground"       35 minutes ago   Up 34 minutes   0.0.0.0:2000->80/tcp, [::]:2000->80/tcp   funny_colden       
+PS C:\Users\Dundi> docker network create mynetwork
+1ad1fb5c89271414cf47e6a97fab20dca3e82d014f5c8ca6adc84510537276c3
+PS C:\Users\Dundi> docker inspect my network
+[]
+error: no such object: my
+error: no such object: network
+PS C:\Users\Dundi> docker inspect mynetwork
+[
+    {
+        "Name": "mynetwork",
+        "Id": "1ad1fb5c89271414cf47e6a97fab20dca3e82d014f5c8ca6adc84510537276c3",
+        "Created": "2025-12-23T06:50:43.656041173Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "IPRange": "",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {},
+        "Containers": {},
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 3,
+                        "DynamicIPsAvailable": 65533
+                    }
+                }
+            }
+        }
+    }
+]
+PS C:\Users\Dundi> docker exe -it container1 bash
+unknown shorthand flag: 'i' in -it
+
+Usage:  docker [OPTIONS] COMMAND [ARG...]
+
+Run 'docker --help' for more information
+PS C:\Users\Dundi> docker exec -it container1 bash
+root@4c9bba3562e6:/# apt update&&apt install -y iputils-ping
+Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]
+Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9670 kB]
+Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
+Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [93.7 kB]
+Fetched 10.0 MB in 5s (2212 kB/s)
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+Installing:
+  iputils-ping
+
+Installing dependencies:
+  linux-sysctl-defaults
+
+Summary:
+  Upgrading: 0, Installing: 2, Removing: 0, Not Upgrading: 1
+  Download size: 56.9 kB
+  Space needed: 211 kB / 1023 GB available
+
+Get:1 http://deb.debian.org/debian trixie/main amd64 iputils-ping amd64 3:20240905-3 [51.2 kB]
+Get:2 http://deb.debian.org/debian trixie/main amd64 linux-sysctl-defaults all 4.12 [5624 B]
+Fetched 56.9 kB in 0s (377 kB/s)
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79, <STDIN> line 2.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 2.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package iputils-ping.
+(Reading database ... 6699 files and directories currently installed.)                                                                          
+Preparing to unpack .../iputils-ping_3%3a20240905-3_amd64.deb ...                                                                               
+Unpacking iputils-ping (3:20240905-3) ...                                                                                                       
+Selecting previously unselected package linux-sysctl-defaults.                                                                                  
+Preparing to unpack .../linux-sysctl-defaults_4.12_all.deb ...                                                                                  
+Unpacking linux-sysctl-defaults (4.12) ...                                                                                                      
+Setting up linux-sysctl-defaults (4.12) ...                                                                                                     
+Setting up iputils-ping (3:20240905-3) ...                                                                                                      
+root@4c9bba3562e6:/#                                                                                                                            
+                                                                                                                                                
